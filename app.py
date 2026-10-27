@@ -1,19 +1,19 @@
 import streamlit as st
 import pandas as pd
 import io
-
-# Шапка: логотип слева, название справа
-col_logo, col_title = st.columns([1, 8], vertical_alignment="center")
-
 import os
 
-if os.path.exists("logo.png"):
-    try:
-        st.image("logo.png", width=80)
-    except Exception:
-        st.markdown("### 📊")  # Если картинка повреждена, покажет иконку
-else:
-    st.markdown("### 📊")
+st.set_page_config(page_title="Ҳисобот ОСАГО", layout="wide")
+
+# Делаем 2 колонки: 1 часть под логотип, 6 частей под заголовок
+col_logo, col_title = st.columns([1, 6], vertical_alignment="center")
+
+with col_logo:
+    # Проверяем наличие файла
+    if os.path.exists("logo.png"):
+        st.image("logo.png", width=110)
+    else:
+        st.warning("Файл logo.png не найден")
 
 with col_title:
     st.title("Ҳисобот ОСАГО: Расчет премий по страховым компаниям")
@@ -21,7 +21,6 @@ with col_title:
 
 st.divider()
 
-# Аккуратная рамка для загрузки
 with st.container(border=True):
     uploaded_file = st.file_uploader("Загрузите файл Excel (.xlsx, .xls)", type=["xlsx", "xls"])
 if uploaded_file is not None:
