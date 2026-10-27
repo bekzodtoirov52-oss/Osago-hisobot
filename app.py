@@ -5,8 +5,15 @@ import io
 # Шапка: логотип слева, название справа
 col_logo, col_title = st.columns([1, 8], vertical_alignment="center")
 
-with col_logo:
-    st.image("logo.png", width=80)  # убедитесь, что файл logo.png загружен в репозиторий
+import os
+
+if os.path.exists("logo.png"):
+    try:
+        st.image("logo.png", width=80)
+    except Exception:
+        st.markdown("### 📊")  # Если картинка повреждена, покажет иконку
+else:
+    st.markdown("### 📊")
 
 with col_title:
     st.title("Ҳисобот ОСАГО: Расчет премий по страховым компаниям")
