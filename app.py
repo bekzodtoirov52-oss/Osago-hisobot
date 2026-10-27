@@ -2,12 +2,21 @@ import streamlit as st
 import pandas as pd
 import io
 
-st.set_page_config(page_title="Хисобот ОСАГО", layout="wide")
+# Шапка: логотип слева, название справа
+col_logo, col_title = st.columns([1, 8], vertical_alignment="center")
 
-st.title("📊 Хисобот ОСАГО: Расчет премий по страховым компаниям")
+with col_logo:
+    st.image("logo.png", width=80)  # убедитесь, что файл logo.png загружен в репозиторий
 
-uploaded_file = st.file_uploader("Загрузите файл Excel (.xlsx, .xls)", type=["xlsx", "xls"])
+with col_title:
+    st.title("Ҳисобот ОСАГО: Расчет премий по страховым компаниям")
+    st.caption("Автоматизированный мониторинг и аналитика реестров")
 
+st.divider()
+
+# Аккуратная рамка для загрузки
+with st.container(border=True):
+    uploaded_file = st.file_uploader("Загрузите файл Excel (.xlsx, .xls)", type=["xlsx", "xls"])
 if uploaded_file is not None:
     try:
         df = pd.read_excel(uploaded_file)
